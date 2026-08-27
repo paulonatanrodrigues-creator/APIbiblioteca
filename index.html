@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Gerenciamento da Biblioteca</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="crt">
+    <div class="scanlines"></div>
+
+    <main class="term">
+
+      <!-- HEADER -->
+      <section class="box box--title">
+        <h1>📚 SISTEMA DE GERENCIAMENTO DA BIBLIOTECA</h1>
+      </section>
+
+      <!-- BUSCA -->
+      <section class="box">
+        <h2 class="box__label">Buscar Leitor:</h2>
+        <div class="search-row">
+          <div class="search-input">
+            <span class="search-input__icon">🔎</span>
+            <input
+              id="inputNome"
+              type="text"
+              placeholder="Digite o nome completo do leitor..."
+              autocomplete="off"
+            />
+          </div>
+          <button id="btnBuscar" class="btn-buscar">BUSCAR HISTÓRICO</button>
+        </div>
+      </section>
+
+      <!-- STATUS / MENSAGENS -->
+      <div id="statusArea" class="status-area" hidden></div>
+
+      <!-- DADOS DO LEITOR -->
+      <section id="dadosLeitorBox" class="box" hidden>
+        <h2 class="box__label">👤 DADOS DO LEITOR</h2>
+        <div class="dados-grid">
+          <div><span class="field-label">Nome:</span> <span id="leitorNome"></span></div>
+          <div><span class="field-label">E-mail:</span> <span id="leitorEmail"></span></div>
+          <div><span class="field-label">Status da Conta:</span> <span id="leitorStatus" class="tag"></span></div>
+        </div>
+      </section>
+
+      <!-- HISTÓRICO -->
+      <section id="historicoBox" class="box" hidden>
+        <h2 class="box__label">📖 HISTÓRICO DE EMPRÉSTIMOS</h2>
+        <div class="table-wrap">
+          <table id="tabelaHistorico">
+            <thead>
+              <tr>
+                <th>Livro</th>
+                <th>Empréstimo</th>
+                <th>Prazo</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaHistoricoBody">
+            </tbody>
+          </table>
+        </div>
+        <p id="semEmprestimos" class="empty-msg" hidden>Nenhum empréstimo encontrado para este leitor.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

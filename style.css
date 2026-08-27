@@ -1,0 +1,303 @@
+/* =========================================================
+   SISTEMA DE GERENCIAMENTO DA BIBLIOTECA — terminal theme
+   ========================================================= */
+
+:root {
+  --bg: #07090a;
+  --bg-panel: #0d1210;
+  --border: #2e4238;
+  --border-bright: #4a6b57;
+  --text: #d3e4d6;
+  --text-dim: #7d9488;
+  --accent: #5fe3a0;
+  --accent-dim: #2f8f65;
+  --warn: #f0c96b;
+  --danger: #ef7d6b;
+  --font-mono: ui-monospace, "JetBrains Mono", "Cascadia Code", "Fira Code",
+    "SFMono-Regular", Consolas, "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+body {
+  padding: 28px 16px 60px;
+}
+
+/* ---------- CRT / scanline signature ---------- */
+
+.crt {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+.term {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ---------- box / panel ---------- */
+
+.box {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 18px 20px;
+  box-shadow: 0 0 0 1px rgba(95, 227, 160, 0.03) inset,
+    0 8px 24px rgba(0, 0, 0, 0.35);
+  animation: fade-up 0.35s ease both;
+}
+
+.box--title {
+  text-align: center;
+  border-color: var(--border-bright);
+  padding: 20px 16px;
+}
+
+.box--title h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(95, 227, 160, 0.35);
+}
+
+.box__label {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border);
+  font-weight: 600;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- busca ---------- */
+
+.search-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1 1 260px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #050705;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 10px 12px;
+  transition: border-color 0.15s ease;
+}
+
+.search-input:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(95, 227, 160, 0.25);
+}
+
+.search-input__icon {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+.search-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  caret-color: var(--accent);
+}
+
+.search-input input::placeholder {
+  color: var(--text-dim);
+}
+
+.btn-buscar {
+  flex: 0 0 auto;
+  background: transparent;
+  border: 1px solid var(--accent-dim);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-buscar:hover {
+  background: rgba(95, 227, 160, 0.08);
+  border-color: var(--accent);
+}
+
+.btn-buscar:active {
+  transform: translateY(1px);
+}
+
+.btn-buscar:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---------- status/mensagens ---------- */
+
+.status-area {
+  font-size: 13px;
+  padding: 12px 16px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+.status-area.is-error {
+  color: var(--danger);
+  border-color: rgba(239, 125, 107, 0.4);
+}
+
+.status-area.is-loading {
+  color: var(--text-dim);
+}
+
+.status-area.is-empty {
+  color: var(--warn);
+  border-color: rgba(240, 201, 107, 0.4);
+}
+
+/* ---------- dados do leitor ---------- */
+
+.dados-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.field-label {
+  color: var(--text-dim);
+  margin-right: 6px;
+}
+
+/* ---------- tabela histórico ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+thead th {
+  text-align: left;
+  color: var(--text-dim);
+  font-weight: 600;
+  padding: 6px 10px 10px 0;
+  border-bottom: 1px dashed var(--border);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid rgba(46, 66, 56, 0.5);
+  vertical-align: top;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.empty-msg {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin: 6px 0 0;
+}
+
+/* ---------- tags de status ---------- */
+
+.tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  border: 1px solid currentColor;
+  letter-spacing: 0.03em;
+}
+
+.tag--ok {
+  color: var(--accent);
+}
+
+.tag--pending {
+  color: var(--warn);
+}
+
+.tag--danger {
+  color: var(--danger);
+}
+
+.tag--neutral {
+  color: var(--text-dim);
+}
+
+/* ---------- responsivo ---------- */
+
+@media (max-width: 480px) {
+  .box--title h1 {
+    font-size: 12.5px;
+  }
+  .btn-buscar {
+    width: 100%;
+  }
+}
